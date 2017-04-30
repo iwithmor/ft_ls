@@ -15,11 +15,14 @@
 int		get_options(int argc, char **argv, t_request *this)
 {
 	int count;
+	int i;
 
 	count = 1;
 	while (count < argc && argv[count][0] == '-')
 	{
-		set_option(argv[count][1], this);
+		i = ft_strlen(argv[count]);
+		while (--i >= 1)
+			set_option(argv[count][i], this);
 		++count;
 	}
 	return (count);
@@ -43,7 +46,6 @@ void	set_option(char option, t_request *this)
 
 void	clear_options(t_args *options)
 {
-	//printf("CLEARING OPTIONS\n");
 	options->l = 0;
 	options->R = 0;
 	options->a = 0;

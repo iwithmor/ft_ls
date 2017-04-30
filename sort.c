@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwithmor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,7 +16,6 @@ void	sort_request_files(t_request *this)
 {
 	t_node	*current;
 
-	//printf("SORTING FILES IN REQUEST\n");
 	int bubble;
 
 	if (this->file_count <= 1)
@@ -32,7 +31,6 @@ void	sort_request_files(t_request *this)
 
 void	sort_directory_files(t_node *directory, t_request *this)
 {
-	//printf("SORTING FILES IN DIRECTORY \"%s\"\n", directory->name);
 	t_node	*current;
 	int bubble;
 

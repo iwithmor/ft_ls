@@ -43,17 +43,13 @@ void	ls(t_request *this)
 {
 	t_node		*current;
 
-	//printf("STARTING LS\n");
 	sort(this);
 	print_files(this);
 	if (!this->options->R)
 		print_directories(this);
 	else
 	{
-		//printf("RECURSIVE REQUEST FOUND\n");
 		current = this->files;
-		//if (!current)
-		//	printf("(null)\n");
 		while (current)
 		{
 			if (is_directory(current))
@@ -73,6 +69,5 @@ int		main(int argc, char **argv)
 	request->arg_count = argc - arg_start_index;
 	get_files(arg_start_index, argc, argv, request);
 	ls(request);
-	//	TO DO:	Do all the hard stuff
 	return (0);
 }
