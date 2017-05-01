@@ -25,6 +25,9 @@ SRC += add.c
 SRC += compare.c
 SRC += swap.c
 SRC += path.c
+SRC += print_long_version.c
+SRC += permissions.c
+SRC += format.c
 
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror

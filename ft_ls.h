@@ -15,11 +15,16 @@
 
 #include "./libft/libft.h"
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <errno.h>
 #include <time.h>
 #include <limits.h>
+#include <pwd.h>
+#include <grp.h>
+#include <langinfo.h>
 
 typedef struct	stat t_stat;
 
@@ -87,6 +92,12 @@ void		print_files(t_request *this);
 void		print_files_from_directory(t_node *directory, t_request *this);
 void		print_directory_contents(t_node *directory, t_request *this);
 void		print_directories(t_request *this);
+
+void		print_long_version(t_node *file);
+void		print_permissions(mode_t mode);
+
+void		print_formatted_number(int number, int width);
+void		print_formatted_string(char *str, int width);
 
 int			is_link(t_node *file);
 int			is_directory(t_node *file);

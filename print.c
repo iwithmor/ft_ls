@@ -18,14 +18,15 @@ void	print_files_from_directory(t_node *directory, t_request *this)
 
 	//printf("PRINTING FILES FROM DIRECTORY (\"%s\")\n", directory->name);
 	current = directory->sub;
-	//if (!current)
-	//	printf("(null)\n");
 	while (current && !is_directory(current))
 	{
 		if (this->options->a || current->name[0] != '.')
 		{
-			ft_putstr(current->name);
-			ft_putstr("\n");
+			if (this->options->l)
+				print_long_version(current);
+			else
+				ft_putstr(current->name);
+			ft_putchar('\n');
 		}
 		current = current->next;
 	}
@@ -37,16 +38,17 @@ void	print_directory_contents(t_node *directory, t_request *this)
 
 	//printf("PRINTING ALL FILES FROM DIRECTORY (\"%s\")\n", directory->name);
 	current = directory->sub;
-	//if (!current)
-	//	printf("(null)\n");
 	if (this->options->a)
 		ft_putstr(".\n..\n");
 	while (current)
 	{
 		if (this->options->a || current->name[0] != '.')
 		{
-			ft_putstr(current->name);
-			ft_putstr("\n");
+			if (this->options->l)
+				print_long_version(current);
+			else
+				ft_putstr(current->name);
+			ft_putchar('\n');
 		}
 		current = current->next;
 	}
@@ -78,7 +80,7 @@ void	print_directories(t_request *this)
 		if (is_directory(current))
 		{
 			if (count)
-				ft_putstr("\n");
+				ft_putchar('\n');
 			++count;
 			if (this->options->R)
 				ft_putstr(current->path);
@@ -97,19 +99,16 @@ void	print_files(t_request *this)
 
 	//printf("PRINTING ALL REQUESTED FILES\n");
 	current = this->files;
-	//if (!current)
-	//	printf("(null)\n");
 	while (current)
 	{
-		//printf("PRINTING \"%s\"? ", current->path);
 		if (!is_directory(current))
 		{
-			//printf("yes\n");
-			ft_putstr(current->name);
-			ft_putstr("\n");
+			if (this->options->l)
+				print_long_version(current);
+			else
+				ft_putstr(current->name);
+			ft_putchar('\n');
 		}
-		//else
-		//	printf("no\n");
 		current = current->next;
 	}
 }
