@@ -16,10 +16,13 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 {
 	t_node	*current;
 
-	if (iteration)
+	if (iteration || this->arg_count > 1)
 	{
-		ft_putstr("\n");	
-		ft_putstr(directory->path);
+		ft_putstr("\n");
+		if (!iteration)
+			ft_putstr(directory->name);
+		else
+			ft_putstr(directory->path);
 		ft_putstr(":\n");
 	}
 	if (directory->file_count == 0)
