@@ -28,6 +28,7 @@ SRC += path.c
 SRC += print_long_version.c
 SRC += permissions.c
 SRC += format.c
+SRC += spacing.c
 
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror

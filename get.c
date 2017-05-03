@@ -22,7 +22,6 @@ char	*get_linked_path(t_node *directory)
 	readlink(directory->path, buffer, PATH_MAX - 1);
 	linked_path = ft_strjoin("//", buffer);
 	free(buffer);
-	//printf("Link  to \"%s\" found.\n", linked_path);
 	return (linked_path);
 }
 

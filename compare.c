@@ -12,19 +12,14 @@
 
 #include "ft_ls.h"
 
-double		time_cmp(t_node *n1, t_node *n2)
+long	time_cmp(t_node *n1, t_node *n2)
 {
-	double	time1;
-	double	time2;
-
-	time1 = difftime(n1->details->st_mtime, 0);
-	time2 = difftime(n2->details->st_mtime, 0);
-	return (time2 - time1);
+	return (n2->details->st_mtime - n1->details->st_mtime);
 }
 
 t_node	*compare_and_swap(t_node *current, t_request *this)
 {
-	double compare_factor;
+	long compare_factor;
 
 	if (this->options->t)
 		compare_factor = time_cmp(current, current->next);
@@ -39,7 +34,7 @@ t_node	*compare_and_swap(t_node *current, t_request *this)
 
 t_node	*directory_compare_and_swap(t_node *file, t_node *d, t_request *this)
 {
-	double compare_factor;
+	long compare_factor;
 
 	if (this->options->t)
 		compare_factor = time_cmp(file, file->next);

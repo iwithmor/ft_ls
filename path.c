@@ -14,7 +14,6 @@
 
 void	set_path(t_node *file, char *prefix)
 {
-	//printf("\nSETTING PATH FOR \"%s\" with prefix \"%s\"\t", file->name, prefix);
 	if (ft_strequ(prefix, ""))
 	{
 		if (ft_strequ(file->name, "."))
@@ -26,5 +25,25 @@ void	set_path(t_node *file, char *prefix)
 	}
 	else
 		file->path = concat_multiple(3, prefix, "/" , file->name);
-	//printf("path = %s\n", file->path);
+}
+
+char	*get_parent_path(t_node *file)
+{
+	char	*last_slash;
+	int		slash_count;
+	int	len;
+
+	if (ft_strequ(file->path, "."))
+		return(ft_strdup(".."));
+	len = ft_strlen(file->path);
+	slash_count = 0;
+	while (--len)
+		slash_count += (file->path[len] == '/') ? 1 : 0;
+	len = ft_strlen(file->path);
+	last_slash = ft_strrchr(file->path, '/');
+	if (!last_slash || last_slash == file->path)
+		return (NULL);
+	if (slash_count == len || file->path - last_slash == len - 1)
+		return (NULL);
+	return (ft_strsub(file->path, 0, last_slash - file->path));
 }

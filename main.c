@@ -24,6 +24,8 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 	}
 	if (directory->file_count == 0)
 		get_directory_contents(directory);
+	if (this->options->l)
+		set_spacing_for_directory(directory, this);
 	print_directory_contents(directory, this);
 	current = directory->sub;
 	while (current)
@@ -44,6 +46,8 @@ void	ls(t_request *this)
 	t_node		*current;
 
 	sort(this);
+	if (this->options->l)
+		set_spacing_for_request(this);
 	print_files(this);
 	if (!this->options->R)
 		print_directories(this);

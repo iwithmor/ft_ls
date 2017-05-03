@@ -14,25 +14,25 @@
 
 void	print_formatted_number(int n, int width)
 {
-	char *number_string;
-	int len;
+	char	*number_string;
+	int		len;
 
 	number_string = ft_itoa(n);
 	len = ft_strlen(number_string);
 	if (len <= width)
-	{
-		while (len < width)
 		{
-			ft_putchar(' ');
-			len++;
+			while (len < width)
+			{
+				ft_putchar(' ');
+				len++;
+			}
+			ft_putstr(number_string);
 		}
-		ft_putstr(number_string);
-	}
 	else
-		ft_putstr(ft_memchr(ft_strnew(width), '0', width));
+		ft_putstr(ft_memchr(ft_strnew(width), ' ', width));
 }
 
-void	print_formatted_string(char *str, int width)
+void	print_formatted_string_left(char *str, int width)
 {
 	int len;
 
@@ -45,6 +45,24 @@ void	print_formatted_string(char *str, int width)
 			ft_putchar(' ');
 			len++;
 		}
+	}
+	else
+		ft_putstr(ft_strsub(str, 0, width));
+}
+
+void	print_formatted_string_right(char *str, int width)
+{
+	int len;
+
+	len = ft_strlen(str);
+	if (len <= width)
+	{
+		while (len < width)
+		{
+			ft_putchar(' ');
+			len++;
+		}
+		ft_putstr(str);
 	}
 	else
 		ft_putstr(ft_strsub(str, 0, width));

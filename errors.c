@@ -15,7 +15,7 @@
 void	memory_error(void)
 {
 	ft_putstr("Not enough memory.\n");
-	exit(0);
+	exit(1);
 }
 
 void	illegal_option(char c)
@@ -24,7 +24,7 @@ void	illegal_option(char c)
 	ft_putchar(c);
 	ft_putstr("\nusage: ls ");
 	ft_putstr("[-lRart] [file ...]\n");
-	exit(0);
+	exit(1);
 }
 
 void	invalid_file(char *s)
@@ -32,7 +32,7 @@ void	invalid_file(char *s)
 	ft_putstr("ls: ");
 	ft_putstr(s);
 	ft_putstr(": No such file or directory\n");
-	exit(0);
+	exit(1);
 }
 
 void	ls_error(char *filename, char *error)

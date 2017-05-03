@@ -70,4 +70,12 @@ void	print_permissions(mode_t mode)
 	print_user_permission(mode);
 	print_group_permission(mode);
 	print_other_permission(mode);
+	//	TO DO:
+	ft_putchar(' ');
+//	if (...)
+//		ft_putchar('@');
+//	else if (...)
+//		ft_putchar('+');
+//	else
+//		ft_putchar(' ');
 }

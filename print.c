@@ -12,18 +12,48 @@
 
 #include "ft_ls.h"
 
+void	print_dots(t_node *directory, t_request *this)
+{
+	t_node	*parent;
+	t_node	*current;
+
+	if (!this->options->l)
+	{
+		if (!this->options->r)
+			ft_putstr(".\n..\n");
+		else
+			ft_putstr("..\n.\n");
+	}
+	else
+	{
+		current = copy_file(ft_strdup("."), directory->path);
+		parent = copy_file(ft_strdup(".."), get_parent_path(directory));
+		if (!this->options->r)
+		{
+			print_long_version(current, directory->width);
+			ft_putchar('\n');
+		}
+		print_long_version(parent, directory->width);
+		ft_putchar('\n');
+		if (this->options->r)
+		{
+			print_long_version(current, directory->width);
+			ft_putchar('\n');
+		}
+	}
+}
+
 void	print_files_from_directory(t_node *directory, t_request *this)
 {
 	t_node *current;
 
-	//printf("PRINTING FILES FROM DIRECTORY (\"%s\")\n", directory->name);
 	current = directory->sub;
 	while (current && !is_directory(current))
 	{
 		if (this->options->a || current->name[0] != '.')
 		{
 			if (this->options->l)
-				print_long_version(current);
+				print_long_version(current, directory->width);
 			else
 				ft_putstr(current->name);
 			ft_putchar('\n');
@@ -32,26 +62,29 @@ void	print_files_from_directory(t_node *directory, t_request *this)
 	}
 }
 
-void	print_directory_contents(t_node *directory, t_request *this)
+void	print_directory_contents(t_node *dir, t_request *this)
 {
 	t_node *current;
 
-	//printf("PRINTING ALL FILES FROM DIRECTORY (\"%s\")\n", directory->name);
-	current = directory->sub;
-	if (this->options->a)
-		ft_putstr(".\n..\n");
+	if (!dir->width)
+		set_spacing_for_directory(dir, this);
+	current = dir->sub;
+	if (this->options->a && !this->options->r)
+		print_dots(dir, this);
 	while (current)
 	{
 		if (this->options->a || current->name[0] != '.')
 		{
 			if (this->options->l)
-				print_long_version(current);
+				print_long_version(current, dir->width);
 			else
 				ft_putstr(current->name);
 			ft_putchar('\n');
 		}
 		current = current->next;
 	}
+	if (this->options->a && this->options->r)
+		print_dots(dir, this);
 }
 
 void	print_directories(t_request *this)
@@ -59,7 +92,6 @@ void	print_directories(t_request *this)
 	t_node	*current;
 	int		count;
 
-	//printf("PRINTING ALL REQUESTED DIRECTORIES\n");
 	count = 0;
 	if (this->file_count == 1 && is_directory(this->files))
 	{
@@ -97,14 +129,13 @@ void	print_files(t_request *this)
 {
 	t_node *current;
 
-	//printf("PRINTING ALL REQUESTED FILES\n");
 	current = this->files;
 	while (current)
 	{
 		if (!is_directory(current))
 		{
 			if (this->options->l)
-				print_long_version(current);
+				print_long_version(current, this->width);
 			else
 				ft_putstr(current->name);
 			ft_putchar('\n');
