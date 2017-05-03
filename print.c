@@ -93,7 +93,8 @@ void	print_directories(t_request *this)
 	int		count;
 
 	count = 0;
-	if (this->file_count == 1 && is_directory(this->files))
+	current = this->files;
+	if (this->file_count == 1 && is_directory(current))
 	{
 		if (this->arg_count > 1)
 		{
@@ -103,10 +104,15 @@ void	print_directories(t_request *this)
 				ft_putstr(current->name);
 			ft_putstr(":\n");
 		}
+		if (this->options->l)
+		{
+			ft_putstr("total: ");
+			ft_putnbr(total_blocks(current));
+			ft_putchar('\n');
+		}
 		print_directory_contents(this->files, this);
 		return ;
 	}
-	current = this->files;
 	while (current)
 	{
 		if (is_directory(current))
@@ -119,6 +125,12 @@ void	print_directories(t_request *this)
 			else
 				ft_putstr(current->name);
 			ft_putstr(":\n");
+			if (this->options->l)
+			{
+				ft_putstr("total: ");
+				ft_putnbr(total_blocks(current));
+				ft_putchar('\n');
+			}
 			print_directory_contents(current, this);
 		}
 		current = current->next;

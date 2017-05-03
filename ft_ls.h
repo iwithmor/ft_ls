@@ -128,4 +128,6 @@ int			is_link_to_directory(t_node *file);
 void		set_spacing_for_request(t_request *this);
 void		set_spacing_for_directory(t_node *dir, t_request *this);
 
+int			total_blocks(t_node *directory);
+
 #endif

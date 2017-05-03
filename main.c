@@ -24,6 +24,12 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 		else
 			ft_putstr(directory->path);
 		ft_putstr(":\n");
+		if (this->options->l)
+		{
+			ft_putstr("total: ");
+			ft_putnbr(total_blocks(current));
+			ft_putchar('\n');
+		}
 	}
 	if (directory->file_count == 0)
 		get_directory_contents(directory);
@@ -56,6 +62,7 @@ void	ls(t_request *this)
 		print_directories(this);
 	else
 	{
+		ft_putchar('\n');
 		current = this->files;
 		while (current)
 		{
