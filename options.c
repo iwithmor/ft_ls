@@ -21,15 +21,39 @@ int		get_options(int argc, char **argv, t_request *this)
 	while (count < argc && argv[count][0] == '-')
 	{
 		i = ft_strlen(argv[count]);
+		if (i == 1)
+			break ;
 		while (--i >= 1)
-			set_option(argv[count][i], this);
+			set_option(argv[count][i], this, i);
 		++count;
 	}
 	return (count);
 }
 
-void	set_option(char option, t_request *this)
+int		valid_unsupported_option(char c)
 {
+	if (c == '1' || c == 'A' || c == '@' || c == 'B' || c == 'b')
+		return (1);
+	if (c == 'C' || c == 'c' || c == 'd' || c == 'e' || c == 'F')
+		return (1);
+	if (c == 'f' || c == 'G' || c == 'g' || c == 'H' || c == 'h')
+		return (1);
+	if (c == 'i' || c == 'k' || c == 'L' || c == 'm' || c == 'n')
+		return (1);
+	if (c == 'O' || c == 'o' || c == 'P' || c == 'p' || c == 'q')
+		return (1);
+	if (c == 'S' || c == 's' || c == 'T' || c == 'U' || c == 'u')
+		return (1);
+	if (c == 'v' || c == 'W' || c == 'w' || c == 'x')
+		return (1);
+	else
+		return (0);
+}
+
+void	set_option(char option, t_request *this, int i)
+{
+	if (i == 1 && option == '-')
+		return ;
 	if (option == 'l')
 		this->options->l = 1;
 	else if (option == 'R')
@@ -40,6 +64,8 @@ void	set_option(char option, t_request *this)
 		this->options->r = 1;
 	else if (option == 't')
 		this->options->t = 1;
+	else if (valid_unsupported_option(option))
+		return ;
 	else
 		illegal_option(option);
 }

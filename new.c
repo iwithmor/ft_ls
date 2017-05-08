@@ -22,6 +22,7 @@ t_request	*new_request(void)
 		memory_error();
 	clear_options(new->options);
 	new->file_count = 0;
+	new->directory_count = 0;
 	return (new);
 }
 

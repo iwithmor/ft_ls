@@ -72,6 +72,7 @@ typedef struct	s_request
 	t_node		*files;
 	int			file_count;
 	int			arg_count;
+	int			directory_count;
 	t_print		*width;
 }				t_request;
 
@@ -95,7 +96,7 @@ void		set_path(t_node *file, char *prefix);
 char		*get_parent_path(t_node *file);
 
 int			get_options(int argc, char **argv, t_request *this);
-void		set_option(char option, t_request *this);
+void		set_option(char option, t_request *this, int i);
 void		clear_options(t_args *options);
 
 void		sort(t_request *this);
@@ -116,6 +117,7 @@ void		print_directories(t_request *this);
 
 void		print_long_version(t_node *file, t_print *width);
 void		print_permissions(mode_t mode);
+int			has_permission(int mode, int mask);
 
 void		print_formatted_number(int number, int width);
 void		print_formatted_string_left(char *str, int width);

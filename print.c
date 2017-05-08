@@ -46,12 +46,15 @@ void	print_dots(t_node *directory, t_request *this)
 void	print_files_from_directory(t_node *directory, t_request *this)
 {
 	t_node *current;
+	int		count;
 
+	count = 0;
 	current = directory->sub;
 	while (current && !is_directory(current))
 	{
 		if (this->options->a || current->name[0] != '.')
 		{
+			count++;
 			if (this->options->l)
 				print_long_version(current, directory->width);
 			else
@@ -65,7 +68,14 @@ void	print_files_from_directory(t_node *directory, t_request *this)
 void	print_directory_contents(t_node *dir, t_request *this)
 {
 	t_node *current;
+	int		count;
 
+	count = 0;
+	if (!has_permission(dir->details->st_mode, S_IROTH))
+	{
+		ls_error(dir->name, "Permission denied");
+		return ;
+	}
 	if (!dir->width)
 		set_spacing_for_directory(dir, this);
 	current = dir->sub;
@@ -75,6 +85,7 @@ void	print_directory_contents(t_node *dir, t_request *this)
 	{
 		if (this->options->a || current->name[0] != '.')
 		{
+			count++;
 			if (this->options->l)
 				print_long_version(current, dir->width);
 			else
@@ -87,6 +98,7 @@ void	print_directory_contents(t_node *dir, t_request *this)
 		print_dots(dir, this);
 }
 
+//
 void	print_directories(t_request *this)
 {
 	t_node	*current;
@@ -106,7 +118,7 @@ void	print_directories(t_request *this)
 		}
 		if (this->options->l)
 		{
-			ft_putstr("total: ");
+			ft_putstr("total ");
 			ft_putnbr(total_blocks(current));
 			ft_putchar('\n');
 		}
@@ -127,7 +139,7 @@ void	print_directories(t_request *this)
 			ft_putstr(":\n");
 			if (this->options->l)
 			{
-				ft_putstr("total: ");
+				ft_putstr("total ");
 				ft_putnbr(total_blocks(current));
 				ft_putchar('\n');
 			}
@@ -137,21 +149,29 @@ void	print_directories(t_request *this)
 	}
 }
 
+//OK
 void	print_files(t_request *this)
 {
 	t_node *current;
+	int		count;
+	int		count2;
 
+	count = 0;
+	count2 = 0;
 	current = this->files;
 	while (current)
 	{
 		if (!is_directory(current))
 		{
+			count++;
 			if (this->options->l)
 				print_long_version(current, this->width);
 			else
 				ft_putstr(current->name);
 			ft_putchar('\n');
 		}
+		else
+			++count2;
 		current = current->next;
 	}
 }
