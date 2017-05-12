@@ -16,6 +16,8 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 {
 	t_node		*current;
 
+	if (directory->file_count == 0)
+		get_directory_contents(directory);
 	if (iteration || this->arg_count > 1)
 	{
 		if (!iteration)
@@ -23,15 +25,13 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 		else
 			ft_putstr(directory->path);
 		ft_putstr(":\n");
-		if (this->options->l)
+		if (iteration && this->options->l)
 		{
-			ft_putstr("total: ");
-			ft_putnbr(total_blocks(current));
+			ft_putstr("total ");
+			ft_putnbr(total_blocks(directory));
 			ft_putchar('\n');
 		}
 	}
-	if (directory->file_count == 0)
-		get_directory_contents(directory);
 	if (this->options->l)
 		set_spacing_for_directory(directory, this);
 	print_directory_contents(directory, this);
