@@ -31,12 +31,12 @@ void	get_directory_contents(t_node *directory)
 	struct dirent	*contents;
 	t_node			*file;
 
-	//printf("GETTING DIRECTORY CONTENTS FOR \"%s\"\n", directory->name);
+	d = NULL;
 	if (is_link(directory) && is_link_to_directory(directory))
 		d = opendir(get_linked_path(directory));
 	else if (is_directory(directory))
 		d = opendir(directory->path);
-	if (d != NULL)
+	if (d)
 	{
 		while ((contents = readdir(d)) != NULL)
 		{
