@@ -55,7 +55,6 @@ void	get_directory_contents(t_node *directory)
 void	get_files(int start, int end, char **argv, t_request *this)
 {
 	t_node *new;
-	//printf("GETTING ALL REQUESTED FILES\n");
 	if (start == end)
 	{
 		new = new_file(".", "");

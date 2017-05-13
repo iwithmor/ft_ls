@@ -119,7 +119,7 @@ void	print_directories(t_request *this)
 		if (this->options->l)
 		{
 			ft_putstr("total ");
-			ft_putnbr(total_blocks(current));
+			ft_putnbr(total_blocks(current, this));
 			ft_putchar('\n');
 		}
 		print_directory_contents(this->files, this);
@@ -140,7 +140,7 @@ void	print_directories(t_request *this)
 			if (this->options->l)
 			{
 				ft_putstr("total ");
-				ft_putnbr(total_blocks(current));
+				ft_putnbr(total_blocks(current, this));
 				ft_putchar('\n');
 			}
 			print_directory_contents(current, this);

@@ -44,7 +44,8 @@ void	print_owners(t_stat *details, int owner_width, int group_width)
 		print_formatted_string_left(user->pw_name, owner_width);
 	else
 		print_formatted_number(details->st_uid, owner_width);
-	ft_putstr("  ");
+	ft_putchar(' ');
+	ft_putchar(' ');
 	if (group)
 		print_formatted_string_left(group->gr_name, group_width);
 	else
@@ -65,11 +66,17 @@ void	print_date_and_time(time_t modification_time)
 	ft_putchar(' ');
 	print_formatted_string_right(date_elements[DAY_OF_MONTH], 2);
 	ft_putchar(' ');
-	ft_putstr(time_elements[HOURS]);
-	ft_putchar(':');
-	ft_putstr(time_elements[MINUTES]);
-//	ft_putchar(':');
-//	ft_putstr(time_elements[SECONDS]);
+	if (!is_current_year(date_elements[YEAR]))
+	{
+		ft_putchar(' ');
+		ft_putstr(date_elements[YEAR]);
+	}
+	else
+	{
+		ft_putstr(time_elements[HOURS]);
+		ft_putchar(':');
+		ft_putstr(time_elements[MINUTES]);
+	}
 	free(date_elements);
 	free(time_elements);
 }
@@ -96,7 +103,8 @@ void	print_long_version(t_node *file, t_print *width)
 	print_formatted_number(st->st_nlink, width->nlink);
 	ft_putchar(' ');
 	print_owners(st, width->owner, width->group);
-	ft_putstr("  ");
+	ft_putchar(' ');
+	ft_putchar(' ');
 	print_formatted_number(st->st_size, width->size);
 	ft_putchar(' ');
 	print_date_and_time(st->st_mtime);

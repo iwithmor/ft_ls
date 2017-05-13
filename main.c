@@ -17,21 +17,12 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 	t_node		*current;
 
 	if (directory->file_count == 0)
-		get_directory_contents(directory);
-	if (iteration || this->arg_count > 1)
 	{
-		if (!iteration)
-			ft_putstr(directory->name);
-		else
-			ft_putstr(directory->path);
-		ft_putstr(":\n");
-		if (iteration && this->options->l)
-		{
-			ft_putstr("total ");
-			ft_putnbr(total_blocks(directory));
-			ft_putchar('\n');
-		}
+		get_directory_contents(directory);
+		sort_directory_files(directory, this);
 	}
+	if (iteration || this->arg_count > 1)
+		print_r_directory_name(directory, this, iteration);
 	if (this->options->l)
 		set_spacing_for_directory(directory, this);
 	print_directory_contents(directory, this);
@@ -39,23 +30,11 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 	while (current)
 	{
 		if (is_directory(current))
-		{
-			if (this->options->a)
-			{
-				ft_putchar('\n');
-				ls_recursive(current, this, ++iteration);
-			}
-			else if (current->name[0] != '.')
-			{
-				ft_putchar('\n');
-				ls_recursive(current, this, ++iteration);
-			}
-		}
+			print_recursive(current, this, iteration);
 		current = current->next;
 	}
 }
 
-//OK
 void	ls(t_request *this)
 {
 	t_node	*current;
@@ -65,6 +44,12 @@ void	ls(t_request *this)
 	sort(this);
 	if (this->options->l)
 		set_spacing_for_request(this);
+	if (!this->arg_count && this->options->l && this->options->R)
+	{
+		ft_putstr("total ");
+		ft_putnbr(total_blocks(this->files, this));
+		ft_putchar('\n');
+	}
 	print_files(this);
 	if (this->directory_count && this->directory_count != this->file_count)
 		ft_putchar('\n');

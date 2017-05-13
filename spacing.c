@@ -72,7 +72,10 @@ void	set_spacing_for_directory(t_node *dir, t_request *this)
 	current = dir->sub;
 	while(current)
 	{
-		set_spacing(current, dir->width);
+		if (this->options->a)
+			set_spacing(current, dir->width);
+		else if (current->name[0] != '.')
+			set_spacing(current, dir->width);
 		current = current->next;
 	}
 	if (this->options->a)

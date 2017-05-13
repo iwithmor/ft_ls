@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blocks.c                                            :+:      :+:    :+:   */
+/*   print_recursive.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwithmor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,31 @@
 
 #include "ft_ls.h"
 
-int	total_blocks(t_node *directory, t_request *this)
+void	print_r_directory_name(t_node *dir, t_request *this, int iteration)
 {
-	int		total;
-	t_node	*current;
-
-	total = 0;
-	current = directory->sub;
-	while (current)
+	if (!iteration)
+			ft_putstr(dir->name);
+	else
+		ft_putstr(dir->path);
+	ft_putstr(":\n");
+	if (iteration && this->options->l)
 	{
-		if (this->options->a)
-			total += current->details->st_blocks;
-		else if (current->name[0] != '.')
-			total += current->details->st_blocks;
-		current = current->next;
+		ft_putstr("total ");
+		ft_putnbr(total_blocks(dir, this));
+		ft_putchar('\n');
 	}
-	return(total);
+}
+
+void	print_recursive(t_node *dir, t_request *this, int iteration)
+{
+	if (this->options->a)
+	{
+		ft_putchar('\n');
+		ls_recursive(dir, this, ++iteration);
+	}
+	else if (dir->name[0] != '.')
+	{
+		ft_putchar('\n');
+		ls_recursive(dir, this, ++iteration);
+	}
 }

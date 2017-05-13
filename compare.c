@@ -14,7 +14,14 @@
 
 long	time_cmp(t_node *n1, t_node *n2)
 {
-	return (n2->details->st_mtime - n1->details->st_mtime);
+	long time1;
+	long time2;
+
+	time1 = n1->details->st_mtime;
+	time2 = n2->details->st_mtime;
+	if (time1 == time2)
+		return (ft_strcmp(n1->name, n2->name));
+	return(time2 - time1);
 }
 
 t_node	*compare_and_swap(t_node *current, t_request *this)
@@ -24,7 +31,11 @@ t_node	*compare_and_swap(t_node *current, t_request *this)
 	if (this->options->t)
 		compare_factor = time_cmp(current, current->next);
 	else
+	{
 		compare_factor = ft_strcmp(current->name, current->next->name);
+		if (compare_factor == 0)
+			compare_factor = time_cmp(current, current->next);
+	}
 	if (this->options->r && compare_factor < 0)
 		return (swap_request_files(current, current->next, this));
 	else if (!this->options->r && compare_factor > 0)

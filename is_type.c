@@ -45,3 +45,15 @@ int	is_directory(t_node *file)
 		return (0);
 	return (is_link_to_directory(file));
 }
+
+int	is_current_year(char *year)
+{
+	time_t	today;
+	char	**today_split;
+	char	*current_year;
+
+	time(&today);
+	today_split = ft_strsplit(ft_strtrim(ctime(&today)), ' ');
+	current_year = today_split[YEAR];
+	return (ft_strequ(year, current_year));
+}
