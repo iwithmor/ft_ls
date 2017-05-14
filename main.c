@@ -17,10 +17,8 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 	t_node		*current;
 
 	if (directory->file_count == 0)
-	{
 		get_directory_contents(directory);
-		sort_directory_files(directory, this);
-	}
+	sort_directory_files(directory, this);
 	if (iteration || this->arg_count > 1)
 		print_r_directory_name(directory, this, iteration);
 	if (this->options->l)
