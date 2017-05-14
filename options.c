@@ -23,6 +23,11 @@ int		get_options(int argc, char **argv, t_request *this)
 		i = ft_strlen(argv[count]);
 		if (i == 1)
 			break ;
+		if (i == 2 && argv[count][1] == '-')
+		{
+			++count;
+			break ;
+		}
 		while (--i >= 1)
 			set_option(argv[count][i], this, i);
 		++count;
