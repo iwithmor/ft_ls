@@ -21,9 +21,12 @@ void	print_r_directory_name(t_node *dir, t_request *this, int iteration)
 	ft_putstr(":\n");
 	if (iteration && this->options->l)
 	{
-		ft_putstr("total ");
-		ft_putnbr(total_blocks(dir, this));
-		ft_putchar('\n');
+		if (dir->file_count != 0 || this->options->a)
+		{
+			ft_putstr("total ");
+			ft_putnbr(total_blocks(dir, this));
+			ft_putchar('\n');
+		}
 	}
 }
 
