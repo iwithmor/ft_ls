@@ -38,6 +38,12 @@
 
 typedef struct	stat t_stat;
 
+typedef struct			s_invalid
+{
+	char				*name;
+	struct s_invalid	*next;
+}						t_invalid;
+
 typedef struct	s_print
 {
 	int			nlink;
@@ -70,9 +76,11 @@ typedef struct	s_request
 {
 	t_args		*options;
 	t_node		*files;
+	t_invalid	*err_files;
 	int			file_count;
 	int			arg_count;
 	int			directory_count;
+	int			err_count;
 	t_print		*width;
 }				t_request;
 
@@ -80,6 +88,7 @@ void		memory_error(void);
 void		illegal_option(char c);
 void		invalid_file(char *s);
 void		ls_error(char *filename, char *error);
+void		print_invalid_files(t_request *this);
 
 t_request	*new_request(void);
 t_node		*new_file(char *filename, char *prefix);
@@ -89,6 +98,7 @@ void		get_files(int start, int end, char **argv, t_request *this);
 void		get_directory_contents(t_node *directory);
 void		add_file_to_request(t_node *new_file, t_request *this);
 void		add_file_to_directory(t_node *file, t_node *directory);
+void		add_file_as_invalid(char *str, t_request *this);
 void		set_path(t_node *file, char *prefix);
 char		*get_parent_path(t_node *file);
 char		*get_linked_path(t_node *directory);
@@ -99,10 +109,13 @@ void		clear_options(t_args *options);
 void		sort(t_request *this);
 void		sort_request_files(t_request *this);
 void		sort_directory_files(t_node *directory, t_request *this);
+void		sort_invalid_files(t_request *this);
 t_node		*compare_and_swap(t_node *current, t_request *this);
 t_node		*directory_compare_and_swap(t_node *f, t_node *d, t_request *this);
+t_invalid	*compare_and_swap_invalid_files(t_invalid *f, t_request *this);
 t_node		*swap_request_files(t_node *n1, t_node *n2, t_request *this);
 t_node		*swap_directory_files(t_node *n1, t_node *n2, t_node *directory);
+t_invalid	*swap_invalid_files(t_invalid *n1, t_invalid *n2, t_request *this);
 
 void		print(t_request *this);
 void		print_files(t_request *this);

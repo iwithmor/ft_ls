@@ -35,7 +35,6 @@ void	add_file_to_directory(t_node *file, t_node *directory)
 {
 	t_node *current;
 
-	//printf("ADDING FILE (\"%s\") TO DIRECTORY (\"%s\")\n", file->name, directory->name);
 	set_path(file, directory->path);
 	if (directory->file_count == 0)
 		directory->sub = file;
@@ -48,4 +47,25 @@ void	add_file_to_directory(t_node *file, t_node *directory)
 		file->next = NULL;
 	}
 	directory->file_count++;
+}
+
+void	add_file_as_invalid(char *str, t_request *this)
+{
+	t_invalid	*new;
+	t_invalid	*current;
+
+	if (!(new = (t_invalid *) ft_memalloc(sizeof(t_invalid))))
+		memory_error();
+	new->name = ft_strdup(str);
+	if (!this->err_files)
+		this->err_files = new;
+	else
+	{
+		current = this->err_files;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new;
+		new->next = NULL;
+	}
+	this->err_count++;
 }

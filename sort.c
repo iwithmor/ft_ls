@@ -56,3 +56,19 @@ void	sort(t_request *this)
 		return ;
 	sort_request_files(this);
 }
+
+void	sort_invalid_files(t_request *this)
+{
+	t_invalid	*current;
+	int			bubble;
+
+	if (this->err_count <= 1)
+		return ;
+	bubble = 0;
+	while (bubble++ < this->err_count)
+	{
+		current = this->err_files;
+		while (current && current->next)
+			current = compare_and_swap_invalid_files(current, this);
+	}
+}

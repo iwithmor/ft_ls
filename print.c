@@ -76,7 +76,6 @@ void	print_directory_contents(t_node *dir, t_request *this)
 		ls_error(dir->name, "Permission denied");
 		return ;
 	}
-	sort_directory_files(dir, this);
 	if (!dir->width)
 		set_spacing_for_directory(dir, this);
 	current = dir->sub;

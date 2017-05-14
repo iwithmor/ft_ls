@@ -68,13 +68,20 @@ void	get_files(int start, int end, char **argv, t_request *this)
 			new = new_file(argv[start], ".");
 		if (new)
 			add_file_to_request(new, this);
+		else
+			add_file_as_invalid(argv[start], this);
 		++start;
 	}
 	new = this->files;
 	while (new)
 	{
 		if (is_directory(new))
+		{
 			get_directory_contents(new);
+			sort_directory_files(new, this);
+		}
 		new = new->next;
 	}
+	sort_invalid_files(this);
+	print_invalid_files(this);
 }

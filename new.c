@@ -21,8 +21,11 @@ t_request	*new_request(void)
 	else if (!(new->options = (t_args *) ft_memalloc(sizeof(t_args))))
 		memory_error();
 	clear_options(new->options);
+	new->files = NULL;
+	new->err_files = NULL;
 	new->file_count = 0;
 	new->directory_count = 0;
+	new->err_count = 0;
 	return (new);
 }
 
@@ -38,11 +41,12 @@ t_node	*new_file(char *filename, char *prefix)
 	set_path(new, prefix);
 	if (lstat(new->path, new->details) == -1)
 	{
-		ls_error(new->name, strerror(errno));
 		free(new->name);
 		free(new->details);
+		free(new);
 		new->name = NULL;
 		new->details = NULL;
+		new = NULL;
 		return (NULL);
 	}
 	return (new);

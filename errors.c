@@ -14,32 +14,44 @@
 
 void	memory_error(void)
 {
-	ft_putstr("Not enough memory.\n");
+	ft_putstr_fd("Not enough memory.\n", 2);
 	exit(ENOMEM);
 }
 
 void	illegal_option(char c)
 {
-	ft_putstr("/bin/ls: illegal option -- ");
-	ft_putchar(c);
-	ft_putstr("\nusage: ls ");
-	ft_putstr("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
-	exit(EINVAL);
+	ft_putstr_fd("/bin/ls: illegal option -- ", 2);
+	ft_putchar_fd(c, 2);
+	ft_putstr_fd("\nusage: ls ", 2);
+	ft_putstr_fd("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
+	exit(EIO);
 }
 
 void	invalid_file(char *s)
 {
-	ft_putstr("ls: ");
-	ft_putstr(s);
-	ft_putstr(": No such file or directory\n");
+	ft_putstr_fd("ls: ", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	exit(ENOENT);
 }
 
 void	ls_error(char *filename, char *error)
 {
-	ft_putstr("ls: ");
-	ft_putstr(filename);
-	ft_putstr(": ");
-	ft_putstr(error);
-	ft_putstr("\n");
+	ft_putstr_fd("ls: ", 2);
+	ft_putstr_fd(filename, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+void	print_invalid_files(t_request *this)
+{
+	t_invalid	*current;
+
+	current = this->err_files;
+	while (current)
+	{
+		ls_error(current->name, "No such file or directory");
+		current = current->next;
+	}
 }
