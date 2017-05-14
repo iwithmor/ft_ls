@@ -149,7 +149,6 @@ void	print_directories(t_request *this)
 	}
 }
 
-//OK
 void	print_files(t_request *this)
 {
 	t_node *current;

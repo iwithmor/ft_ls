@@ -27,13 +27,13 @@ void	illegal_option(char c)
 	exit(1);
 }
 
-void	invalid_file(char *s)
-{
-	ft_putstr("ls: ");
-	ft_putstr(s);
-	ft_putstr(": No such file or directory\n");
-	exit(1);
-}
+// void	invalid_file(char *s)
+// {
+// 	ft_putstr("ls: ");
+// 	ft_putstr(s);
+// 	ft_putstr(": No such file or directory\n");
+// 	exit(1);
+// }
 
 void	ls_error(char *filename, char *error)
 {

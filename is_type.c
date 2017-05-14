@@ -23,10 +23,12 @@ int	is_link_to_directory(t_node *file)
 
 	if (!(link_info = (t_stat *) ft_memalloc(sizeof(t_stat))))
 		memory_error();
-	if (stat(file->path, link_info) == -1)
+	if (lstat(file->path, link_info) == -1)
 	{
-		ls_error(file->name, strerror(errno));
-		return (0);
+		if (stat(file->path, link_info) == -1)
+			return (0);
+		else
+			return (S_ISDIR(link_info->st_mode));
 	}
 	if (S_ISDIR(link_info->st_mode))
 	{
@@ -34,6 +36,15 @@ int	is_link_to_directory(t_node *file)
 		return (1);
 	}
 	free(link_info);
+	if (!(link_info = (t_stat *) ft_memalloc(sizeof(t_stat))))
+		memory_error();
+	if (stat(file->path, link_info) == -1)
+		return (0);
+	if (S_ISDIR(link_info->st_mode))
+	{
+		free(link_info);
+		return (1);
+	}
 	return (0);
 }
 
@@ -41,7 +52,7 @@ int	is_directory(t_node *file)
 {
 	if (S_ISDIR(file->details->st_mode))
 		return (1);
-	if (!S_ISLNK(file->details->st_mode))
+	if (!is_link(file))
 		return (0);
 	return (is_link_to_directory(file));
 }

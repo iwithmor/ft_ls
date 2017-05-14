@@ -14,15 +14,12 @@
 
 char	*get_linked_path(t_node *directory)
 {
-	char	*buffer;
 	char	*linked_path;
 
-	if (!(buffer = (char *) ft_memalloc(PATH_MAX)))
+	if (!(linked_path = (char *) ft_memalloc(PATH_MAX)))
 		memory_error();
-	readlink(directory->path, buffer, PATH_MAX - 1);
-	linked_path = ft_strjoin("//", buffer);
-	free(buffer);
-	return (linked_path);
+	readlink(directory->path, linked_path, PATH_MAX - 1);
+	return(linked_path);
 }
 
 void	get_directory_contents(t_node *directory)

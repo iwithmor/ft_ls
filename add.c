@@ -16,7 +16,6 @@ void	add_file_to_request(t_node *new_file, t_request *this)
 {
 	t_node *current;
 
-	//printf("ADDING FILE (\"%s\") TO REQUEST\n", new_file->name);
 	if (is_directory(new_file))
 		this->directory_count++;
 	if (this->file_count == 0)
