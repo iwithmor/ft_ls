@@ -42,7 +42,7 @@ void	ls(t_request *this)
 	sort(this);
 	if (this->options->l)
 		set_spacing_for_request(this);
-	if (!this->arg_count && this->options->l && this->options->R)
+	if (this->arg_count <= 1 && this->options->l && this->options->R)
 	{
 		ft_putstr("total ");
 		ft_putnbr(total_blocks(this->files, this));
