@@ -93,7 +93,7 @@ void		set_path(t_node *file, char *prefix);
 char		*get_parent_path(t_node *file);
 char		*get_linked_path(t_node *directory);
 int			get_options(int argc, char **argv, t_request *this);
-void		set_option(char option, t_request *this, int i);
+void		set_option(char option, t_request *this);
 void		clear_options(t_args *options);
 
 void		sort(t_request *this);
@@ -126,5 +126,6 @@ void		set_spacing_for_request(t_request *this);
 void		set_spacing_for_directory(t_node *dir, t_request *this);
 int			total_blocks(t_node *directory, t_request *this);
 void		ls_recursive(t_node *directory, t_request *this, int iteration);
+void		verify_arguments(char **args, int start, int end);
 
 #endif

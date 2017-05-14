@@ -31,6 +31,7 @@ SRC += format.c
 SRC += spacing.c
 SRC	+= blocks.c
 SRC += print_recursive.c
+SRC += verify.c
 
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror

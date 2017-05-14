@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iwithmor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,34 +12,12 @@
 
 #include "ft_ls.h"
 
-void	memory_error(void)
+void	verify_arguments(char **args, int start, int end)
 {
-	ft_putstr("Not enough memory.\n");
-	exit(ENOMEM);
-}
-
-void	illegal_option(char c)
-{
-	ft_putstr("/bin/ls: illegal option -- ");
-	ft_putchar(c);
-	ft_putstr("\nusage: ls ");
-	ft_putstr("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
-	exit(EINVAL);
-}
-
-void	invalid_file(char *s)
-{
-	ft_putstr("ls: ");
-	ft_putstr(s);
-	ft_putstr(": No such file or directory\n");
-	exit(ENOENT);
-}
-
-void	ls_error(char *filename, char *error)
-{
-	ft_putstr("ls: ");
-	ft_putstr(filename);
-	ft_putstr(": ");
-	ft_putstr(error);
-	ft_putstr("\n");
+	while (start < end)
+	{
+		if (ft_strequ(args[start], ""))
+			invalid_file("fts_open");
+		start++;
+	}
 }

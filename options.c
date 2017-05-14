@@ -20,16 +20,16 @@ int		get_options(int argc, char **argv, t_request *this)
 	count = 1;
 	while (count < argc && argv[count][0] == '-')
 	{
-		i = ft_strlen(argv[count]);
-		if (i == 1)
+		if (ft_strequ(argv[count], "-"))
 			break ;
-		if (i == 2 && argv[count][1] == '-')
+		if (ft_strequ(argv[count], "--"))
 		{
 			++count;
 			break ;
 		}
-		while (--i >= 1)
-			set_option(argv[count][i], this, i);
+		i = 0;
+		while (++i < (int)ft_strlen(argv[count]))
+			set_option(argv[count][i], this);
 		++count;
 	}
 	return (count);
@@ -55,10 +55,8 @@ int		valid_unsupported_option(char c)
 		return (0);
 }
 
-void	set_option(char option, t_request *this, int i)
+void	set_option(char option, t_request *this)
 {
-	if (i == 1 && option == '-')
-		return ;
 	if (option == 'l')
 		this->options->l = 1;
 	else if (option == 'R')

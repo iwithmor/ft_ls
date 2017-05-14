@@ -78,6 +78,7 @@ int		main(int argc, char **argv)
 	request = new_request();
 	arg_start_index = get_options(argc, argv, request);
 	request->arg_count = argc - arg_start_index;
+	verify_arguments(argv, arg_start_index, argc);
 	get_files(arg_start_index, argc, argv, request);
 	ls(request);
 	return (0);
