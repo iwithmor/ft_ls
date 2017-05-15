@@ -98,7 +98,7 @@ void	print_long_version(t_node *file, t_print *width)
 
 	st = file->details;
 	print_file_type(st->st_mode);
-	print_permissions(st->st_mode);
+	print_permissions(file);
 	ft_putchar(' ');
 	print_formatted_number(st->st_nlink, width->nlink);
 	ft_putchar(' ');

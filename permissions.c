@@ -88,17 +88,21 @@ void	print_other_permission(mode_t mode)
 		ft_putchar('-');
 }
 
-void	print_permissions(mode_t mode)
+void	print_permissions(t_node *file)
 {
+	mode_t	mode;
+
+	mode = file->details->st_mode;
 	print_user_permission(mode);
 	print_group_permission(mode);
 	print_other_permission(mode);
-	//	TO DO:
-	ft_putchar(' ');
-//	if (...)
-//		ft_putchar('@');
-//	else if (...)
-//		ft_putchar('+');
-//	else
-//		ft_putchar(' ');
+	if (has_extended_attributes(file))
+	{
+		if (has_acl_xattr(file))
+			ft_putchar('+');
+		else
+			ft_putchar('@');
+	}
+	else
+		ft_putchar(' ');
 }

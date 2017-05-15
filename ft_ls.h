@@ -16,6 +16,8 @@
 #include "./libft/libft.h"
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/xattr.h>
+#include <sys/acl.h>
 #include <fcntl.h>
 #include <dirent.h>
 #include <stdio.h>
@@ -123,8 +125,10 @@ void		print_files_from_directory(t_node *directory, t_request *this);
 void		print_directory_contents(t_node *dir, t_request *this);
 void		print_directories(t_request *this);
 void		print_long_version(t_node *file, t_print *width);
-void		print_permissions(mode_t mode);
+void		print_permissions(t_node *file);
 int			has_permission(int mode, int mask);
+int			has_extended_attributes(t_node *file);
+int			has_acl_xattr(t_node *file);
 void		print_formatted_number(int number, int width);
 void		print_formatted_string_left(char *str, int width);
 void		print_formatted_string_right(char *str, int width);

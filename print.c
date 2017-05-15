@@ -115,13 +115,19 @@ void	print_directories(t_request *this)
 				ft_putstr(current->name);
 			ft_putstr(":\n");
 		}
-		if (this->options->l)
+		if (this->options->l && current->file_count != 0)
 		{
 			ft_putstr("total ");
 			ft_putnbr(total_blocks(current, this));
 			ft_putchar('\n');
 		}
-		print_directory_contents(this->files, this);
+		if (current->file_count == 0 && is_link(current) && this->options->l)
+		{
+			print_long_version(current, this->width);
+			ft_putchar('\n');
+		}
+		else
+			print_directory_contents(this->files, this);
 		return ;
 	}
 	while (current)
