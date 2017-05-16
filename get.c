@@ -49,9 +49,26 @@ void	get_directory_contents(t_node *directory, t_request *this)
 	}
 }
 
+void	get_sub_files(t_request *this)
+{
+	t_node	*current;
+
+	current = this->files;
+	while (current)
+	{
+		if (is_directory(current))
+		{
+			get_directory_contents(current, this);
+			sort_directory_files(current, this);
+		}
+		current = current->next;
+	}
+}
+
 void	get_files(int start, int end, char **argv, t_request *this)
 {
 	t_node *new;
+	
 	if (start == end)
 	{
 		new = new_file(".", "");
@@ -72,16 +89,7 @@ void	get_files(int start, int end, char **argv, t_request *this)
 			add_file_as_invalid(argv[start], this);
 		++start;
 	}
-	new = this->files;
-	while (new)
-	{
-		if (is_directory(new))
-		{
-			get_directory_contents(new, this);
-			sort_directory_files(new, this);
-		}
-		new = new->next;
-	}
+	get_sub_files(this);
 	sort_invalid_files(this);
 	print_invalid_files(this);
 }

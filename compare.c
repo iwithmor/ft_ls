@@ -62,17 +62,8 @@ t_invalid	*compare_and_swap_invalid_files(t_invalid *f, t_request *this)
 {
 	long compare_factor;
 
-	// if (this->options->t)
-	// 	compare_factor = time_cmp(current, current->next);
-	// else
-	// {
-		compare_factor = ft_strcmp(f->name, f->next->name);
-		// if (compare_factor == 0)
-		// 	compare_factor = time_cmp(current, current->next);
-	// }
-	// if (this->options->r && compare_factor < 0)
-	// 	return (swap_request_files(current, current->next, this));
-	/*else */if (/*!this->options->r && */compare_factor > 0)
+	compare_factor = ft_strcmp(f->name, f->next->name);
+	if (compare_factor > 0)
 		return (swap_invalid_files(f, f->next, this));
 	return f->next;
 }
