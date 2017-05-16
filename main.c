@@ -38,39 +38,18 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 
 void	ls(t_request *this)
 {
-	t_node	*current;
-	int		count;
-
-	count = 0;
 	sort(this);
 	if (this->options->l)
 		set_spacing_for_request(this);
 	if (this->arg_count <= 1 && this->options->l && this->options->R)
-	{
-		ft_putstr("total ");
-		ft_putnbr(total_blocks(this->files, this));
-		ft_putchar('\n');
-	}
+		print_block_total(this->files, this);
 	print_files(this);
 	if (this->directory_count && this->directory_count != this->file_count)
 		ft_putchar('\n');
 	if (!this->options->R)
 		print_directories(this);
 	else
-	{
-		current = this->files;
-		while (current)
-		{
-			if (is_directory(current))
-			{
-				if (count)
-					ft_putchar('\n');
-				++count;
-				ls_recursive(current, this, 0);
-			}
-			current = current->next;
-		}
-	}
+		print_r_directories(this);
 }
 
 int		main(int argc, char **argv)

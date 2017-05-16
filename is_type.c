@@ -35,9 +35,7 @@ int	is_link_to_directory(t_node *file)
 		free(link_info);
 		return (1);
 	}
-	free(link_info);
-	if (!(link_info = (t_stat *) ft_memalloc(sizeof(t_stat))))
-		memory_error();
+	bzero(link_info, sizeof(link_info));
 	if (stat(file->path, link_info) == -1)
 		return (0);
 	if (S_ISDIR(link_info->st_mode))

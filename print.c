@@ -12,37 +12,6 @@
 
 #include "ft_ls.h"
 
-// void	print_dots(t_node *directory, t_request *this)
-// {
-// 	t_node	*parent;
-// 	t_node	*current;
-
-// 	if (!this->options->l)
-// 	{
-// 		if (!this->options->r)
-// 			ft_putstr(".\n..\n");
-// 		else
-// 			ft_putstr("..\n.\n");
-// 	}
-// 	else
-// 	{
-// 		current = copy_file(ft_strdup("."), directory->path);
-// 		parent = copy_file(ft_strdup(".."), get_parent_path(directory));
-// 		if (!this->options->r)
-// 		{
-// 			print_long_version(current, directory->width);
-// 			ft_putchar('\n');
-// 		}
-// 		print_long_version(parent, directory->width);
-// 		ft_putchar('\n');
-// 		if (this->options->r)
-// 		{
-// 			print_long_version(current, directory->width);
-// 			ft_putchar('\n');
-// 		}
-// 	}
-// }
-
 void	print_files_from_directory(t_node *directory, t_request *this)
 {
 	t_node *current;
@@ -94,6 +63,24 @@ void	print_directory_contents(t_node *dir, t_request *this)
 	}
 }
 
+void	print_single_directory(t_request *this)
+{
+	t_node	*current;
+
+	current = this->files;
+	if (this->arg_count > 1)
+		print_directory_name(current, this);	
+	if (this->options->l && current->file_count != 0)
+		print_block_total(current, this);
+	if (current->file_count == 0 && is_link(current) && this->options->l)
+	{
+		print_long_version(current, this->width);
+		ft_putchar('\n');
+	}
+	else
+		print_directory_contents(current, this);
+}
+
 void	print_directories(t_request *this)
 {
 	t_node	*current;
@@ -103,27 +90,7 @@ void	print_directories(t_request *this)
 	current = this->files;
 	if (this->file_count == 1 && is_directory(current))
 	{
-		if (this->arg_count > 1)
-		{
-			if (this->options->R)
-				ft_putstr(current->path);
-			else
-				ft_putstr(current->name);
-			ft_putstr(":\n");
-		}
-		if (this->options->l && current->file_count != 0)
-		{
-			ft_putstr("total ");
-			ft_putnbr(total_blocks(current, this));
-			ft_putchar('\n');
-		}
-		if (current->file_count == 0 && is_link(current) && this->options->l)
-		{
-			print_long_version(current, this->width);
-			ft_putchar('\n');
-		}
-		else
-			print_directory_contents(this->files, this);
+		print_single_directory(this);
 		return ;
 	}
 	while (current)
@@ -133,17 +100,9 @@ void	print_directories(t_request *this)
 			if (count)
 				ft_putchar('\n');
 			++count;
-			if (this->options->R)
-				ft_putstr(current->path);
-			else
-				ft_putstr(current->name);
-			ft_putstr(":\n");
+			print_directory_name(current, this);
 			if (this->options->l)
-			{
-				ft_putstr("total ");
-				ft_putnbr(total_blocks(current, this));
-				ft_putchar('\n');
-			}
+				print_block_total(current, this);
 			print_directory_contents(current, this);
 		}
 		current = current->next;

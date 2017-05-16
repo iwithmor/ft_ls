@@ -134,7 +134,9 @@ int			has_acl_xattr(t_node *file);
 void		print_formatted_number(int number, int width);
 void		print_formatted_string_left(char *str, int width);
 void		print_formatted_string_right(char *str, int width);
+void		print_directory_name(t_node *directory, t_request *this);
 void		print_r_directory_name(t_node *dir, t_request *this, int iter);
+void		print_r_directories(t_request *this);
 void		print_recursive(t_node *dir, t_request *this, int iteration);
 char		file_type(mode_t st_mode);
 int			is_link(t_node *file);
@@ -148,5 +150,6 @@ int			total_blocks(t_node *directory, t_request *this);
 void		ls_recursive(t_node *directory, t_request *this, int iteration);
 void		verify_arguments(char **args, int start, int end);
 void		print_major_and_minor(t_node *file, t_print *width);
+void		print_block_total(t_node *file, t_request *this);
 
 #endif

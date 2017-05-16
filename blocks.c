@@ -29,3 +29,10 @@ int	total_blocks(t_node *directory, t_request *this)
 	}
 	return(total);
 }
+
+void	print_block_total(t_node *file, t_request *this)
+{
+	ft_putstr("total ");
+	ft_putnbr(total_blocks(file, this));
+	ft_putchar('\n');
+}

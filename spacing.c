@@ -12,10 +12,35 @@
 
 #include "ft_ls.h"
 
-void	adjust_size_spacing(t_print *width)
+void	reset_spacing(t_print *width)
 {
-	if (width->size < width->major + width->minor + 1)
-		width->size = width->major + width->minor + 1;
+	width->nlink = 0;
+	width->owner = 0;
+	width->group = 0;
+	width->major = 0;
+	width->minor = 0;
+	width->size = 0;
+}
+
+void	set_size_spacing(t_node *f, t_print *width)
+{
+	int	len;
+
+	if (is_device(f))
+	{
+		len = ft_strlen(ft_itoa(major(f->details->st_rdev)));
+		if (len > width->major)
+			width->major = len;
+		len = ft_strlen(ft_itoa(minor(f->details->st_rdev)));
+		if (len > width->minor)
+			width->minor = len;
+	}
+	else
+	{
+		len = ft_strlen(ft_itoa(f->details->st_size));
+		if (len > width->size)
+			width->size = len;
+	}
 }
 
 void	set_spacing(t_node *f, t_print *width)
@@ -30,26 +55,18 @@ void	set_spacing(t_node *f, t_print *width)
 		len = ft_strlen(owner->pw_name);
 	else
 		len = ft_strlen(ft_itoa(f->details->st_uid));
-	width->owner = (len > width->owner) ? len : width->owner;
+	if (len > width->owner)
+		width->owner = len;
 	if (group)
 		len = ft_strlen(group->gr_name);
 	else
 		len = ft_strlen(ft_itoa(f->details->st_gid));
-	width->group = (len > width->group) ? len : width->group;
+	if (len > width->group)
+		width->group = len;
 	len = ft_strlen(ft_itoa(f->details->st_nlink));
-	width->nlink = (len > width->nlink) ? len : width->nlink;
-	if (is_device(f))
-	{
-		len = ft_strlen(ft_itoa(major(f->details->st_rdev)));
-		width->major = (len > width->major) ? len : width->major;
-		len = ft_strlen(ft_itoa(minor(f->details->st_rdev)));
-		width->minor = (len > width->minor) ? len : width->minor;
-	}
-	else
-	{
-		len = ft_strlen(ft_itoa(f->details->st_size));
-		width->size = (len > width->size) ? len : width->size;
-	}
+	if (len > width->nlink)
+		width->nlink = len;
+	set_size_spacing(f, width);
 }
 
 void	set_spacing_for_request(t_request *this)
@@ -58,19 +75,15 @@ void	set_spacing_for_request(t_request *this)
 
 	if (!this->width && !(this->width = (t_print *) malloc(sizeof(t_print))))
 		memory_error();
-	this->width->nlink = 0;
-	this->width->owner = 0;
-	this->width->group = 0;
-	this->width->major = 0;
-	this->width->minor = 0;
-	this->width->size = 0;
+	reset_spacing(this->width);
 	current = this->files;
 	while(current)
 	{
 		set_spacing(current, this->width);
 		current = current->next;
 	}
-	adjust_size_spacing(this->width);
+	if (this->width->size < this->width->major + this->width->minor + 1)
+		this->width->size = this->width->major + this->width->minor + 1;
 }
 
 void	set_spacing_for_directory(t_node *dir, t_request *this)
@@ -80,12 +93,7 @@ void	set_spacing_for_directory(t_node *dir, t_request *this)
 
 	if (!dir->width && !(dir->width = (t_print *) malloc(sizeof(t_print))))
 		memory_error();
-	dir->width->nlink = 0;
-	dir->width->owner = 0;
-	dir->width->group = 0;
-	dir->width->major = 0;
-	dir->width->minor = 0;
-	dir->width->size = 0;
+	reset_spacing(dir->width);
 	current = dir->sub;
 	while(current)
 	{
@@ -101,5 +109,6 @@ void	set_spacing_for_directory(t_node *dir, t_request *this)
 		set_spacing(dir, dir->width);
 		set_spacing(parent, dir->width);
 	}
-	adjust_size_spacing(dir->width);
+	if (dir->width->size < dir->width->major + dir->width->minor + 1)
+		dir->width->size = dir->width->major + dir->width->minor + 1;
 }

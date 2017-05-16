@@ -12,8 +12,6 @@
 
 #include "ft_ls.h"
 
-// diff <(ls -lR /usr/bin) <(./ft_ls -lR /usr/bin)
-
 int	has_permission(int mode, int mask)
 {
 	return ((mode & mask) == mask);
