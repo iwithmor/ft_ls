@@ -12,13 +12,11 @@
 
 #include "ft_ls.h"
 
-void	print_file_type(mode_t st_mode)
+char	file_type(mode_t st_mode)
 {
 	char type;
 
-	if (S_ISREG(st_mode))
-		type = '-';
-	else if (S_ISDIR(st_mode))
+	if (S_ISDIR(st_mode))
 		type = 'd';
 	else if (S_ISBLK(st_mode))
 		type = 'b';
@@ -30,7 +28,7 @@ void	print_file_type(mode_t st_mode)
 		type = 's';
 	else
 		type = '-';
-	ft_putchar(type);
+	return (type);
 }
 
 void	print_owners(t_stat *details, int owner_width, int group_width)
@@ -97,7 +95,7 @@ void	print_long_version(t_node *file, t_print *width)
 	t_stat	*st;
 
 	st = file->details;
-	print_file_type(st->st_mode);
+	ft_putchar(file_type(st->st_mode));
 	print_permissions(file);
 	ft_putchar(' ');
 	print_formatted_number(st->st_nlink, width->nlink);
@@ -105,7 +103,10 @@ void	print_long_version(t_node *file, t_print *width)
 	print_owners(st, width->owner, width->group);
 	ft_putchar(' ');
 	ft_putchar(' ');
-	print_formatted_number(st->st_size, width->size);
+	if (is_device(file))
+		print_major_and_minor(file, width);
+	else
+		print_formatted_number(st->st_size, width->size);
 	ft_putchar(' ');
 	print_date_and_time(st->st_mtime);
 	ft_putchar(' ');

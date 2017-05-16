@@ -57,6 +57,16 @@ int	is_directory(t_node *file)
 	return (is_link_to_directory(file));
 }
 
+int	is_device(t_node *file)
+{
+	char	type;
+
+	type = file_type(file->details->st_mode);
+	if (type == 'b' || type == 'c')
+		return (1);
+	return (0);
+}
+
 int	is_current_year(char *year)
 {
 	time_t	today;

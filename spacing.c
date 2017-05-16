@@ -12,6 +12,12 @@
 
 #include "ft_ls.h"
 
+void	adjust_size_spacing(t_print *width)
+{
+	if (width->size < width->major + width->minor + 1)
+		width->size = width->major + width->minor + 1;
+}
+
 void	set_spacing(t_node *f, t_print *width)
 {
 	struct passwd	*owner;
@@ -24,20 +30,26 @@ void	set_spacing(t_node *f, t_print *width)
 		len = ft_strlen(owner->pw_name);
 	else
 		len = ft_strlen(ft_itoa(f->details->st_uid));
-	if (len > width->owner)
-		width->owner = len;
+	width->owner = (len > width->owner) ? len : width->owner;
 	if (group)
 		len = ft_strlen(group->gr_name);
 	else
 		len = ft_strlen(ft_itoa(f->details->st_gid));
-	if (len > width->group)
-		width->group = len;
+	width->group = (len > width->group) ? len : width->group;
 	len = ft_strlen(ft_itoa(f->details->st_nlink));
-	if (len > width->nlink)
-		width->nlink = len;
-	len = ft_strlen(ft_itoa(f->details->st_size));
-	if (len > width->size)
-		width->size = len;
+	width->nlink = (len > width->nlink) ? len : width->nlink;
+	if (is_device(f))
+	{
+		len = ft_strlen(ft_itoa(major(f->details->st_rdev)));
+		width->major = (len > width->major) ? len : width->major;
+		len = ft_strlen(ft_itoa(minor(f->details->st_rdev)));
+		width->minor = (len > width->minor) ? len : width->minor;
+	}
+	else
+	{
+		len = ft_strlen(ft_itoa(f->details->st_size));
+		width->size = (len > width->size) ? len : width->size;
+	}
 }
 
 void	set_spacing_for_request(t_request *this)
@@ -49,6 +61,8 @@ void	set_spacing_for_request(t_request *this)
 	this->width->nlink = 0;
 	this->width->owner = 0;
 	this->width->group = 0;
+	this->width->major = 0;
+	this->width->minor = 0;
 	this->width->size = 0;
 	current = this->files;
 	while(current)
@@ -56,6 +70,7 @@ void	set_spacing_for_request(t_request *this)
 		set_spacing(current, this->width);
 		current = current->next;
 	}
+	adjust_size_spacing(this->width);
 }
 
 void	set_spacing_for_directory(t_node *dir, t_request *this)
@@ -68,6 +83,8 @@ void	set_spacing_for_directory(t_node *dir, t_request *this)
 	dir->width->nlink = 0;
 	dir->width->owner = 0;
 	dir->width->group = 0;
+	dir->width->major = 0;
+	dir->width->minor = 0;
 	dir->width->size = 0;
 	current = dir->sub;
 	while(current)
@@ -84,4 +101,5 @@ void	set_spacing_for_directory(t_node *dir, t_request *this)
 		set_spacing(dir, dir->width);
 		set_spacing(parent, dir->width);
 	}
+	adjust_size_spacing(dir->width);
 }

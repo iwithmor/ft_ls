@@ -15,7 +15,7 @@
 void	memory_error(void)
 {
 	ft_putstr_fd("Not enough memory.\n", 2);
-	exit(ENOMEM);
+	exit(1);
 }
 
 void	illegal_option(char c)
@@ -24,7 +24,7 @@ void	illegal_option(char c)
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("\nusage: ls ", 2);
 	ft_putstr_fd("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
-	exit(EIO);
+	exit(1);
 }
 
 void	invalid_file(char *s)
@@ -32,7 +32,7 @@ void	invalid_file(char *s)
 	ft_putstr_fd("ls: ", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
-	exit(ENOENT);
+	exit(1);
 }
 
 void	ls_error(char *filename, char *error)

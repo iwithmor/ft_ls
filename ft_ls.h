@@ -51,6 +51,8 @@ typedef struct	s_print
 	int			nlink;
 	int			owner;
 	int			group;
+	int			major;
+	int			minor;
 	int			size;
 }				t_print;
 
@@ -134,15 +136,17 @@ void		print_formatted_string_left(char *str, int width);
 void		print_formatted_string_right(char *str, int width);
 void		print_r_directory_name(t_node *dir, t_request *this, int iter);
 void		print_recursive(t_node *dir, t_request *this, int iteration);
-
+char		file_type(mode_t st_mode);
 int			is_link(t_node *file);
 int			is_directory(t_node *file);
 int			is_link_to_directory(t_node *file);
+int			is_device(t_node *file);
 int			is_current_year(char *year);
 void		set_spacing_for_request(t_request *this);
 void		set_spacing_for_directory(t_node *dir, t_request *this);
 int			total_blocks(t_node *directory, t_request *this);
 void		ls_recursive(t_node *directory, t_request *this, int iteration);
 void		verify_arguments(char **args, int start, int end);
+void		print_major_and_minor(t_node *file, t_print *width);
 
 #endif
