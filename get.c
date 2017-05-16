@@ -22,7 +22,7 @@ char	*get_linked_path(t_node *directory)
 	return(linked_path);
 }
 
-void	get_directory_contents(t_node *directory)
+void	get_directory_contents(t_node *directory, t_request *this)
 {
 	DIR 			*d;
 	struct dirent	*contents;
@@ -37,9 +37,9 @@ void	get_directory_contents(t_node *directory)
 	{
 		while ((contents = readdir(d)) != NULL)
 		{
-			if (ft_strequ(contents->d_name, "."))
+			if (!this->options->a && ft_strequ(contents->d_name, "."))
 				continue ;
-			else if (ft_strequ(contents->d_name, ".."))
+			else if (!this->options->a && ft_strequ(contents->d_name, ".."))
 				continue ;
 			file = new_file(contents->d_name, directory->path);
 			if (file)
@@ -77,7 +77,7 @@ void	get_files(int start, int end, char **argv, t_request *this)
 	{
 		if (is_directory(new))
 		{
-			get_directory_contents(new);
+			get_directory_contents(new, this);
 			sort_directory_files(new, this);
 		}
 		new = new->next;

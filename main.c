@@ -17,7 +17,7 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 	t_node		*current;
 
 	if (directory->file_count == 0)
-		get_directory_contents(directory);
+		get_directory_contents(directory, this);
 	sort_directory_files(directory, this);
 	if (iteration || this->arg_count > 1)
 		print_r_directory_name(directory, this, iteration);
@@ -27,8 +27,11 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 	current = directory->sub;
 	while (current)
 	{
-		if (is_directory(current))
-			print_recursive(current, this, iteration);
+		if (is_directory(current) && !ft_strequ(current->name, "."))
+		{
+			if (!ft_strequ(current->name, ".."))
+				print_recursive(current, this, iteration);
+		}
 		current = current->next;
 	}
 }

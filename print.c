@@ -12,36 +12,36 @@
 
 #include "ft_ls.h"
 
-void	print_dots(t_node *directory, t_request *this)
-{
-	t_node	*parent;
-	t_node	*current;
+// void	print_dots(t_node *directory, t_request *this)
+// {
+// 	t_node	*parent;
+// 	t_node	*current;
 
-	if (!this->options->l)
-	{
-		if (!this->options->r)
-			ft_putstr(".\n..\n");
-		else
-			ft_putstr("..\n.\n");
-	}
-	else
-	{
-		current = copy_file(ft_strdup("."), directory->path);
-		parent = copy_file(ft_strdup(".."), get_parent_path(directory));
-		if (!this->options->r)
-		{
-			print_long_version(current, directory->width);
-			ft_putchar('\n');
-		}
-		print_long_version(parent, directory->width);
-		ft_putchar('\n');
-		if (this->options->r)
-		{
-			print_long_version(current, directory->width);
-			ft_putchar('\n');
-		}
-	}
-}
+// 	if (!this->options->l)
+// 	{
+// 		if (!this->options->r)
+// 			ft_putstr(".\n..\n");
+// 		else
+// 			ft_putstr("..\n.\n");
+// 	}
+// 	else
+// 	{
+// 		current = copy_file(ft_strdup("."), directory->path);
+// 		parent = copy_file(ft_strdup(".."), get_parent_path(directory));
+// 		if (!this->options->r)
+// 		{
+// 			print_long_version(current, directory->width);
+// 			ft_putchar('\n');
+// 		}
+// 		print_long_version(parent, directory->width);
+// 		ft_putchar('\n');
+// 		if (this->options->r)
+// 		{
+// 			print_long_version(current, directory->width);
+// 			ft_putchar('\n');
+// 		}
+// 	}
+// }
 
 void	print_files_from_directory(t_node *directory, t_request *this)
 {
@@ -79,8 +79,6 @@ void	print_directory_contents(t_node *dir, t_request *this)
 	if (!dir->width)
 		set_spacing_for_directory(dir, this);
 	current = dir->sub;
-	if (this->options->a && !this->options->r)
-		print_dots(dir, this);
 	while (current)
 	{
 		if (this->options->a || current->name[0] != '.')
@@ -94,8 +92,6 @@ void	print_directory_contents(t_node *dir, t_request *this)
 		}
 		current = current->next;
 	}
-	if (this->options->a && this->options->r)
-		print_dots(dir, this);
 }
 
 void	print_directories(t_request *this)

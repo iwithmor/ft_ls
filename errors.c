@@ -20,7 +20,7 @@ void	memory_error(void)
 
 void	illegal_option(char c)
 {
-	ft_putstr_fd("/bin/ls: illegal option -- ", 2);
+	ft_putstr_fd("ls: illegal option -- ", 2);
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("\nusage: ls ", 2);
 	ft_putstr_fd("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);

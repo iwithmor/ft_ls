@@ -99,7 +99,7 @@ t_node		*new_file(char *filename, char *prefix);
 t_node		*copy_file(char *file_name, char *file_path);
 int			get_options(int argc, char **argv, t_request *this);
 void		get_files(int start, int end, char **argv, t_request *this);
-void		get_directory_contents(t_node *directory);
+void		get_directory_contents(t_node *directory, t_request *this);
 void		add_file_to_request(t_node *new_file, t_request *this);
 void		add_file_to_directory(t_node *file, t_node *directory);
 void		add_file_as_invalid(char *str, t_request *this);
