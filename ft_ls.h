@@ -13,20 +13,20 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-#include "./libft/libft.h"
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/xattr.h>
-#include <sys/acl.h>
-#include <fcntl.h>
-#include <dirent.h>
-#include <stdio.h>
-#include <errno.h>
-#include <time.h>
-#include <limits.h>
-#include <pwd.h>
-#include <grp.h>
-#include <langinfo.h>
+# include "./libft/libft.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <sys/xattr.h>
+# include <sys/acl.h>
+# include <fcntl.h>
+# include <dirent.h>
+# include <stdio.h>
+# include <errno.h>
+# include <time.h>
+# include <limits.h>
+# include <pwd.h>
+# include <grp.h>
+# include <langinfo.h>
 
 # define DAY_OF_WEEK	0
 # define MONTH			1
@@ -38,7 +38,7 @@
 # define MINUTES		1
 # define SECONDS		2
 
-typedef struct stat 	t_stat;
+typedef struct stat		t_stat;
 
 typedef struct			s_invalid
 {
@@ -59,7 +59,7 @@ typedef struct			s_print
 typedef struct			s_args
 {
 	int					l;
-	int					R;
+	int					big_r;
 	int					a;
 	int					r;
 	int					t;
@@ -132,7 +132,7 @@ void					print_formatted_number(int number, int width);
 void					print_formatted_string_left(char *str, int width);
 void					print_formatted_string_right(char *str, int width);
 void					print_directory_name(t_node *directory, t_request *t);
-void					print_r_directory_name(t_node *dir, t_request *t, int i);
+void					print_r_directory_name(t_node *d, t_request *t, int i);
 void					print_r_directories(t_request *this);
 void					print_recursive(t_node *dir, t_request *t, int i);
 char					file_type(mode_t st_mode);

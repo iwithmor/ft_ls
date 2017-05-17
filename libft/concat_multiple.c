@@ -20,7 +20,7 @@ void	concat_strings(char *new, char **strings, int string_count)
 
 	i = 0;
 	x = 0;
-	while(i < string_count)
+	while (i < string_count)
 	{
 		j = 0;
 		while (j < (int)ft_strlen(strings[i]))
@@ -41,7 +41,7 @@ char	*concat_multiple(int count, ...)
 	char	*new;
 	int		len;
 
-	va_start(string_list, count); 
+	va_start(string_list, count);
 	string_array = (char **)malloc(sizeof(char *) * count);
 	i = 0;
 	len = 0;
@@ -51,9 +51,8 @@ char	*concat_multiple(int count, ...)
 		len += ft_strlen(string_array[i]);
 		i++;
 	}
-	new = (char *) ft_memalloc(len + 1);
+	new = (char *)ft_memalloc(len + 1);
 	concat_strings(new, string_array, count);
 	va_end(string_list);
-
 	return (new);
 }

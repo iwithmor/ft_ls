@@ -41,12 +41,12 @@ void	ls(t_request *this)
 	sort(this);
 	if (this->options->l)
 		set_spacing_for_request(this);
-	if (this->arg_count <= 1 && this->options->l && this->options->R)
+	if (this->arg_count <= 1 && this->options->l && this->options->big_r)
 		print_block_total(this->files, this);
 	print_files(this);
 	if (this->directory_count && this->directory_count != this->file_count)
 		ft_putchar('\n');
-	if (!this->options->R)
+	if (!this->options->big_r)
 		print_directories(this);
 	else
 		print_r_directories(this);

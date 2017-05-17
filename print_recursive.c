@@ -14,7 +14,7 @@
 
 void	print_directory_name(t_node *directory, t_request *this)
 {
-	if (this->options->R)
+	if (this->options->big_r)
 		ft_putstr(directory->path);
 	else
 		ft_putstr(directory->name);
