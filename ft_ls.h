@@ -127,7 +127,6 @@ void					print_long_version(t_node *file, t_print *width);
 void					print_permissions(t_node *file);
 int						has_permission(int mode, int mask);
 int						has_extended_attributes(t_node *file);
-int						has_acl_xattr(t_node *file);
 void					print_formatted_number(int number, int width);
 void					print_formatted_string_left(char *str, int width);
 void					print_formatted_string_right(char *str, int width);

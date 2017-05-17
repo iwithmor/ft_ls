@@ -21,13 +21,3 @@ int	has_extended_attributes(t_node *file)
 		return (1);
 	return (0);
 }
-
-int	has_acl_xattr(t_node *file)
-{
-	acl_t	acl;
-
-	acl = acl_get_file(file->path, ACL_TYPE_ACCESS);
-	if (acl)
-		return (1);
-	return (0);
-}

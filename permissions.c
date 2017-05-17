@@ -95,12 +95,7 @@ void	print_permissions(t_node *file)
 	print_group_permission(mode);
 	print_other_permission(mode);
 	if (has_extended_attributes(file))
-	{
-		if (has_acl_xattr(file))
-			ft_putchar('+');
-		else
-			ft_putchar('@');
-	}
+		ft_putchar('@');
 	else
 		ft_putchar(' ');
 }
