@@ -14,7 +14,7 @@
 
 void	print_files_from_directory(t_node *directory, t_request *this)
 {
-	t_node *current;
+	t_node	*current;
 	int		count;
 
 	count = 0;
@@ -36,7 +36,7 @@ void	print_files_from_directory(t_node *directory, t_request *this)
 
 void	print_directory_contents(t_node *dir, t_request *this)
 {
-	t_node *current;
+	t_node	*current;
 	int		count;
 
 	count = 0;
@@ -69,7 +69,7 @@ void	print_single_directory(t_request *this)
 
 	current = this->files;
 	if (this->arg_count > 1)
-		print_directory_name(current, this);	
+		print_directory_name(current, this);
 	if (this->options->l && current->file_count != 0)
 		print_block_total(current, this);
 	if (current->file_count == 0 && is_link(current) && this->options->l)
@@ -111,26 +111,19 @@ void	print_directories(t_request *this)
 
 void	print_files(t_request *this)
 {
-	t_node *current;
-	int		count;
-	int		count2;
+	t_node	*current;
 
-	count = 0;
-	count2 = 0;
 	current = this->files;
 	while (current)
 	{
 		if (!is_directory(current))
 		{
-			count++;
 			if (this->options->l)
 				print_long_version(current, this->width);
 			else
 				ft_putstr(current->name);
 			ft_putchar('\n');
 		}
-		else
-			++count2;
 		current = current->next;
 	}
 }

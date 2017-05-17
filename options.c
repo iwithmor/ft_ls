@@ -80,4 +80,4 @@ void	clear_options(t_args *options)
 	options->a = 0;
 	options->r = 0;
 	options->t = 0;
-}	
+}

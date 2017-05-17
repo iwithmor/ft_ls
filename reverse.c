@@ -31,7 +31,7 @@ void	directory_swap_down(t_node *directory, int swaps)
 	current = directory->sub;
 	while (swaps)
 	{
-		current = swap_directory_files(current, current->next, directory);
+		current = swap_dir_files(current, current->next, directory);
 		--swaps;
 	}
 }

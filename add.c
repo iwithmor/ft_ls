@@ -54,7 +54,7 @@ void	add_file_as_invalid(char *str, t_request *this)
 	t_invalid	*new;
 	t_invalid	*current;
 
-	if (!(new = (t_invalid *) ft_memalloc(sizeof(t_invalid))))
+	if (!(new = (t_invalid *)ft_memalloc(sizeof(t_invalid))))
 		memory_error();
 	new->name = ft_strdup(str);
 	if (!this->err_files)
