@@ -60,7 +60,7 @@ void	set_option(char option, t_request *this)
 	if (option == 'l')
 		this->options->l = 1;
 	else if (option == 'R')
-		this->options->R = 1;
+		this->options->recursive = 1;
 	else if (option == 'a')
 		this->options->a = 1;
 	else if (option == 'r')
@@ -76,8 +76,8 @@ void	set_option(char option, t_request *this)
 void	clear_options(t_args *options)
 {
 	options->l = 0;
-	options->R = 0;
+	options->recursive = 0;
 	options->a = 0;
 	options->r = 0;
 	options->t = 0;
-}	
+}

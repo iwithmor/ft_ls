@@ -14,14 +14,14 @@
 
 void	print_directory_name(t_node *directory, t_request *this)
 {
-	if (this->options->R)
+	if (this->options->recursive)
 		ft_putstr(directory->path);
 	else
 		ft_putstr(directory->name);
 	ft_putstr(":\n");
 }
 
-void	print_r_directory_name(t_node *dir, t_request *this, int iteration)
+void	print_r_dir_name(t_node *dir, t_request *this, int iteration)
 {
 	if (!iteration)
 		ft_putstr(dir->name);

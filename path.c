@@ -21,20 +21,20 @@ void	set_path(t_node *file, char *prefix)
 		else if (file->name[0] && file->name[0] == '/')
 			file->path = ft_strdup(file->name);
 		else
-			file->path = concat_multiple(3, prefix, "/" , file->name);
+			file->path = concat_multiple(3, prefix, "/", file->name);
 	}
 	else
-		file->path = concat_multiple(3, prefix, "/" , file->name);
+		file->path = concat_multiple(3, prefix, "/", file->name);
 }
 
 char	*get_parent_path(t_node *file)
 {
 	char	*last_slash;
 	int		slash_count;
-	int	len;
+	int		len;
 
 	if (ft_strequ(file->path, "."))
-		return(ft_strdup(".."));
+		return (ft_strdup(".."));
 	len = ft_strlen(file->path);
 	slash_count = 0;
 	while (--len)
