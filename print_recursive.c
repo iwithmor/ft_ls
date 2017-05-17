@@ -57,12 +57,7 @@ void	print_r_directories(t_request *this)
 
 void	print_recursive(t_node *dir, t_request *this, int iteration)
 {
-	if (this->options->a)
-	{
-		ft_putchar('\n');
-		ls_recursive(dir, this, ++iteration);
-	}
-	else if (dir->name[0] != '.')
+	if (this->options->a || dir->name[0] != '.')
 	{
 		ft_putchar('\n');
 		ls_recursive(dir, this, ++iteration);
