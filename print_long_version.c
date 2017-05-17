@@ -33,8 +33,8 @@ char	file_type(mode_t st_mode)
 
 void	print_owners(t_stat *details, int owner_width, int group_width)
 {
-	struct passwd	*user;
-	struct group	*group;
+	struct passwd  *user;
+	struct group   *group;
 
 	user = getpwuid(details->st_uid);
 	group = getgrgid(details->st_gid);
@@ -55,6 +55,7 @@ void	print_date_and_time(time_t modification_time)
 	char	*date_time_string;
 	char	**date_elements;
 	char	**time_elements;
+
 
 	date_time_string = ft_strtrim(ctime(&modification_time));
 	date_elements = ft_strsplit(date_time_string, ' ');

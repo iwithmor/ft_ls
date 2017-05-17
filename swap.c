@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-t_node		*swap_request_files(t_node *n1, t_node *n2, t_request *this)
+t_node	*swap_request_files(t_node *n1, t_node *n2, t_request *this)
 {
 	t_node	*previous;
 
@@ -34,7 +34,7 @@ t_node		*swap_request_files(t_node *n1, t_node *n2, t_request *this)
 	return (n1->next);
 }
 
-t_node		*swap_dir_files(t_node *n1, t_node *n2, t_node *directory)
+t_node	*swap_directory_files(t_node *n1, t_node *n2, t_node *directory)
 {
 	t_node	*previous;
 
@@ -56,7 +56,7 @@ t_node		*swap_dir_files(t_node *n1, t_node *n2, t_node *directory)
 	return (n1->next);
 }
 
-t_invalid	*swap_err(t_invalid *n1, t_invalid *n2, t_request *this)
+t_invalid	*swap_invalid_files(t_invalid *n1, t_invalid *n2, t_request *this)
 {
 	t_invalid	*previous;
 

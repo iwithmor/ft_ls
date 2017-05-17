@@ -16,15 +16,15 @@ char	*get_linked_path(t_node *directory)
 {
 	char	*linked_path;
 
-	if (!(linked_path = (char *)ft_memalloc(PATH_MAX)))
+	if (!(linked_path = (char *) ft_memalloc(PATH_MAX)))
 		memory_error();
 	readlink(directory->path, linked_path, PATH_MAX - 1);
-	return (linked_path);
+	return(linked_path);
 }
 
 void	get_directory_contents(t_node *directory, t_request *this)
 {
-	DIR				*d;
+	DIR 			*d;
 	struct dirent	*contents;
 	t_node			*file;
 
@@ -68,7 +68,7 @@ void	get_sub_files(t_request *this)
 void	get_files(int start, int end, char **argv, t_request *this)
 {
 	t_node *new;
-
+	
 	if (start == end)
 	{
 		new = new_file(".", "");

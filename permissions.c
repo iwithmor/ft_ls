@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-int		has_permission(int mode, int mask)
+int	has_permission(int mode, int mask)
 {
 	return ((mode & mask) == mask);
 }

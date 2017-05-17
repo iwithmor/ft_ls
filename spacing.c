@@ -73,11 +73,11 @@ void	set_spacing_for_request(t_request *this)
 {
 	t_node	*current;
 
-	if (!this->width && !(this->width = (t_print *)malloc(sizeof(t_print))))
+	if (!this->width && !(this->width = (t_print *) malloc(sizeof(t_print))))
 		memory_error();
 	reset_spacing(this->width);
 	current = this->files;
-	while (current)
+	while(current)
 	{
 		set_spacing(current, this->width);
 		current = current->next;
@@ -91,11 +91,11 @@ void	set_spacing_for_directory(t_node *dir, t_request *this)
 	t_node	*current;
 	t_node	*parent;
 
-	if (!dir->width && !(dir->width = (t_print *)malloc(sizeof(t_print))))
+	if (!dir->width && !(dir->width = (t_print *) malloc(sizeof(t_print))))
 		memory_error();
 	reset_spacing(dir->width);
 	current = dir->sub;
-	while (current)
+	while(current)
 	{
 		if (this->options->a)
 			set_spacing(current, dir->width);

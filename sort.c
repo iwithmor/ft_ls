@@ -15,7 +15,8 @@
 void	sort_request_files(t_request *this)
 {
 	t_node	*current;
-	int		bubble;
+
+	int bubble;
 
 	if (this->file_count <= 1)
 		return ;
@@ -31,7 +32,7 @@ void	sort_request_files(t_request *this)
 void	sort_directory_files(t_node *directory, t_request *this)
 {
 	t_node	*current;
-	int		bubble;
+	int bubble;
 
 	if (directory->file_count <= 1)
 		return ;
@@ -40,7 +41,7 @@ void	sort_directory_files(t_node *directory, t_request *this)
 	{
 		current = directory->sub;
 		while (current && current->next)
-			current = dir_comp_and_swap(current, directory, this);
+			current = directory_compare_and_swap(current, directory, this);
 	}
 }
 
@@ -68,6 +69,6 @@ void	sort_invalid_files(t_request *this)
 	{
 		current = this->err_files;
 		while (current && current->next)
-			current = comp_and_swap_err_files(current, this);
+			current = compare_and_swap_invalid_files(current, this);
 	}
 }

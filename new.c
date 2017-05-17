@@ -16,9 +16,9 @@ t_request	*new_request(void)
 {
 	t_request	*new;
 
-	if (!(new = (t_request *)ft_memalloc(sizeof(t_request))))
+	if (!(new = (t_request *) ft_memalloc(sizeof(t_request))))
 		memory_error();
-	else if (!(new->options = (t_args *)ft_memalloc(sizeof(t_args))))
+	else if (!(new->options = (t_args *) ft_memalloc(sizeof(t_args))))
 		memory_error();
 	clear_options(new->options);
 	new->files = NULL;
@@ -29,13 +29,13 @@ t_request	*new_request(void)
 	return (new);
 }
 
-t_node		*new_file(char *filename, char *prefix)
+t_node	*new_file(char *filename, char *prefix)
 {
 	t_node *new;
 
-	if (!(new = (t_node *)ft_memalloc(sizeof(t_node))))
+	if (!(new = (t_node *) ft_memalloc(sizeof(t_node))))
 		memory_error();
-	if (!(new->details = (t_stat *)ft_memalloc(sizeof(t_stat))))
+	if (!(new->details = (t_stat *) ft_memalloc(sizeof(t_stat))))
 		memory_error();
 	new->name = ft_strdup(filename);
 	set_path(new, prefix);
@@ -52,13 +52,13 @@ t_node		*new_file(char *filename, char *prefix)
 	return (new);
 }
 
-t_node		*copy_file(char *file_name, char *file_path)
+t_node	*copy_file(char *file_name, char *file_path)
 {
 	t_node	*new;
 
-	if (!(new = (t_node *)ft_memalloc(sizeof(t_node))))
+	if (!(new = (t_node *) ft_memalloc(sizeof(t_node))))
 		memory_error();
-	if (!(new->details = (t_stat *)ft_memalloc(sizeof(t_stat))))
+	if (!(new->details = (t_stat *) ft_memalloc(sizeof(t_stat))))
 		memory_error();
 	new->name = file_name;
 	new->path = (file_path) ? file_path : ft_strdup("/");

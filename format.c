@@ -20,14 +20,14 @@ void	print_formatted_number(int n, int width)
 	number_string = ft_itoa(n);
 	len = ft_strlen(number_string);
 	if (len <= width)
-	{
-		while (len < width)
 		{
-			ft_putchar(' ');
-			len++;
+			while (len < width)
+			{
+				ft_putchar(' ');
+				len++;
+			}
+			ft_putstr(number_string);
 		}
-		ft_putstr(number_string);
-	}
 	else
 		ft_putstr(ft_memchr(ft_strnew(width), ' ', width));
 }

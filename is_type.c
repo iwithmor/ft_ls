@@ -14,14 +14,14 @@
 
 int	is_link(t_node *file)
 {
-	return (S_ISLNK(file->details->st_mode));
+	return S_ISLNK(file->details->st_mode);
 }
 
 int	is_link_to_directory(t_node *file)
 {
 	t_stat *link_info;
 
-	if (!(link_info = (t_stat *)ft_memalloc(sizeof(t_stat))))
+	if (!(link_info = (t_stat *) ft_memalloc(sizeof(t_stat))))
 		memory_error();
 	if (lstat(file->path, link_info) == -1)
 	{

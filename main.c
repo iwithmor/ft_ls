@@ -20,7 +20,7 @@ void	ls_recursive(t_node *directory, t_request *this, int iteration)
 		get_directory_contents(directory, this);
 	sort_directory_files(directory, this);
 	if (iteration || this->arg_count > 1)
-		print_r_dir_name(directory, this, iteration);
+		print_r_directory_name(directory, this, iteration);
 	if (this->options->l)
 		set_spacing_for_directory(directory, this);
 	print_directory_contents(directory, this);
@@ -41,12 +41,12 @@ void	ls(t_request *this)
 	sort(this);
 	if (this->options->l)
 		set_spacing_for_request(this);
-	if (this->arg_count <= 1 && this->options->l && this->options->recursive)
+	if (this->arg_count <= 1 && this->options->l && this->options->R)
 		print_block_total(this->files, this);
 	print_files(this);
 	if (this->directory_count && this->directory_count != this->file_count)
 		ft_putchar('\n');
-	if (!this->options->recursive)
+	if (!this->options->R)
 		print_directories(this);
 	else
 		print_r_directories(this);
