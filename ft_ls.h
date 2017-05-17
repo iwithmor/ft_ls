@@ -93,7 +93,6 @@ void		illegal_option(char c);
 void		invalid_file(char *s);
 void		ls_error(char *filename, char *error);
 void		print_invalid_files(t_request *this);
-
 t_request	*new_request(void);
 t_node		*new_file(char *filename, char *prefix);
 t_node		*copy_file(char *file_name, char *file_path);
@@ -109,7 +108,6 @@ char		*get_linked_path(t_node *directory);
 int			get_options(int argc, char **argv, t_request *this);
 void		set_option(char option, t_request *this);
 void		clear_options(t_args *options);
-
 void		sort(t_request *this);
 void		sort_request_files(t_request *this);
 void		sort_directory_files(t_node *directory, t_request *this);
@@ -120,7 +118,6 @@ t_invalid	*compare_and_swap_invalid_files(t_invalid *f, t_request *this);
 t_node		*swap_request_files(t_node *n1, t_node *n2, t_request *this);
 t_node		*swap_directory_files(t_node *n1, t_node *n2, t_node *directory);
 t_invalid	*swap_invalid_files(t_invalid *n1, t_invalid *n2, t_request *this);
-
 void		print(t_request *this);
 void		print_files(t_request *this);
 void		print_files_from_directory(t_node *directory, t_request *this);
@@ -151,5 +148,8 @@ void		ls_recursive(t_node *directory, t_request *this, int iteration);
 void		verify_arguments(char **args, int start, int end);
 void		print_major_and_minor(t_node *file, t_print *width);
 void		print_block_total(t_node *file, t_request *this);
+void		reverse_directory_files(t_node *directory);
+void		reverse_files(t_request *this);
+long		time_cmp(t_node *n1, t_node *n2);
 
 #endif

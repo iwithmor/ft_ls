@@ -31,7 +31,7 @@ t_node	*swap_request_files(t_node *n1, t_node *n2, t_request *this)
 		n2->next = n1;
 		previous->next = n2;
 	}
-	return (n1->next);
+	return (n1);
 }
 
 t_node	*swap_directory_files(t_node *n1, t_node *n2, t_node *directory)
@@ -53,7 +53,7 @@ t_node	*swap_directory_files(t_node *n1, t_node *n2, t_node *directory)
 		n2->next = n1;
 		previous->next = n2;
 	}
-	return (n1->next);
+	return (n1);
 }
 
 t_invalid	*swap_invalid_files(t_invalid *n1, t_invalid *n2, t_request *this)
@@ -75,5 +75,5 @@ t_invalid	*swap_invalid_files(t_invalid *n1, t_invalid *n2, t_request *this)
 		n2->next = n1;
 		previous->next = n2;
 	}
-	return (n1->next);
+	return (n1);
 }

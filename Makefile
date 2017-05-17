@@ -34,6 +34,7 @@ SRC += print_recursive.c
 SRC += verify.c
 SRC += extended_attributes.c
 SRC += major_and_minor.c
+SRC += reverse.c
 
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror
